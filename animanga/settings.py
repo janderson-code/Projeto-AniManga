@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'animanga',
     'animes',
     'mangas',
+    'season',
 ]
 
 MIDDLEWARE = [

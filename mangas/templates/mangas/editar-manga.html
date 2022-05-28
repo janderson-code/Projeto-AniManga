@@ -1,130 +1,128 @@
-{% extends 'animanga/base/header.html' %}
-{% load static %}
-{% block main %}
-    <main>
-        <div class="row">
-            <div class="col s6 offset-s3">
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title center">Editar Titulo</span>
-                        <div class="row">
-                            <form class="col s12" method="POST" action="cadastrarFilme.php">
-                                <!--Input do Titulo--->
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input name="titulo" id="titulo" type="text" value="" required>
-                                        <label for="titulo">Titulo do Manga</label>
-                                        <div class="red-text">
-                                        </div>
+{% extends 'animanga/base/header.html' %} {% load static %} {% block main %}
+<main>
+    <div class="row">
+        <div class="col s6 offset-s3">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title center">Editar Mangá</span>
+                    <div class="row">
+                        <form class="col s12" method="POST" action="cadastrarFilme.php">
+                            <!--Input do Titulo--->
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input name="titulo" id="titulo" type="text" value="" required>
+                                    <label for="titulo">Titulo do Manga</label>
+                                    <div class="red-text">
                                     </div>
                                 </div>
+                            </div>
 
-                                <!--Input do Gênero--->
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="genero" name="genero" type="text" value="">
-                                        <label for="genero">Gênero</label>
-                                        <div class="red-text">
-                                        </div>
+                            <!--Input do Gênero--->
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="genero" name="genero" type="text" value="">
+                                    <label for="genero">Gênero</label>
+                                    <div class="red-text">
                                     </div>
                                 </div>
+                            </div>
 
-                                <!--Input do Total Episodios--->
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="total_episodes" name="total_episodes" type="text" value="">
-                                        <label for="total_episodes">Total de episódios</label>
-                                        <div class="red-text">
-                                        </div>
+                            <!--Input do Total Episodios--->
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="total_episodes" name="total_episodes" type="text" value="">
+                                    <label for="total_episodes">Total de episódios</label>
+                                    <div class="red-text">
                                     </div>
                                 </div>
+                            </div>
 
-                                <!--Input do Status--->
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="status" name="status" type="text" value="">
-                                        <label for="status">Status</label>
-                                        <div class="red-text">
-                                        </div>
+                            <!--Input do Status--->
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="status" name="status" type="text" value="">
+                                    <label for="status">Status</label>
+                                    <div class="red-text">
                                     </div>
                                 </div>
+                            </div>
 
-                                <!--Input da Sinopse--->
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <textarea id="sinopse" name="sinopse" class="materialize-textarea" value=""></textarea>
-                                        <label for="sinopse">Sinopse</label>
-                                        <div class="red-text">
-                                        </div>
+                            <!--Input da Sinopse--->
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="sinopse" name="sinopse" class="materialize-textarea" value=""></textarea>
+                                    <label for="sinopse">Sinopse</label>
+                                    <div class="red-text">
                                     </div>
                                 </div>
+                            </div>
 
-                                <!--Input do Thumbnail Oficial--->
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="official_thumbnail" name="official_thumbnail" type="text" value="">
-                                        <label for="official_thumbnail">Thumbnail Oficial</label>
-                                        <div class="red-text">
-                                        </div>
+                            <!--Input do Thumbnail Oficial--->
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="official_thumbnail" name="official_thumbnail" type="text" value="">
+                                    <label for="official_thumbnail">Thumbnail Oficial</label>
+                                    <div class="red-text">
                                     </div>
                                 </div>
+                            </div>
 
-                                <!--Input da Thumbnail Customizada --->
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="custom_thumbnail" name="custom_thumbnail" type="text" value="" required>
-                                        <label for="custom_thumbnail">Thumbail Customizada</label>
-                                        <div class="red-text">
-                                        </div>
+                            <!--Input da Thumbnail Customizada --->
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="custom_thumbnail" name="custom_thumbnail" type="text" value="" required>
+                                    <label for="custom_thumbnail">Thumbail Customizada</label>
+                                    <div class="red-text">
                                     </div>
                                 </div>
+                            </div>
 
-                                <!--Input Kistu Link--->
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="kitsu_link" name="kitsu_link" type="text" value="" required>
-                                        <label for="kitsu_link">Kitsu Link</label>
-                                        <div class="red-text">
-                                        </div>
+                            <!--Input Kistu Link--->
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="kitsu_link" name="kitsu_link" type="text" value="" required>
+                                    <label for="kitsu_link">Kitsu Link</label>
+                                    <div class="red-text">
                                     </div>
                                 </div>
+                            </div>
 
-                                <!--Input Lançamento--->
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="is_lancamento" name="is_lancamento" type="text" value="" maxlength="1" required>
-                                        <label for="is_lancamento">Em Lancamento?</label>
-                                        <div class="red-text">
-                                        </div>
+                            <!--Input Lançamento--->
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="is_lancamento" name="is_lancamento" type="text" value="" maxlength="1" required>
+                                    <label for="is_lancamento">Em Lancamento?</label>
+                                    <div class="red-text">
                                     </div>
                                 </div>
-                                <div class="card-action">
-                                    <a class="btn waves-effect waves-light grey btn " href="">Cancelar</a>
-                                    <button class="btn waves-effect waves-light green " type="reset" name="action">Limpar
+                            </div>
+                            <div class="card-action">
+                                <a class="btn waves-effect waves-light grey btn " href="">Cancelar</a>
+                                <button class="btn waves-effect waves-light green " type="reset" name="action">Limpar
                                 <i class="material-icons right">send</i>
                             </button>
-                                    <button class="btn waves-effect waves-light light-blue darken-2" value="enviar" type="submit" name="enviar">Cadastrar
+                                <button class="btn waves-effect waves-light light-blue darken-2" value="enviar" type="submit" name="enviar">Cadastrar
                                 <i class="material-icons right">send</i>
                             </button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
+
             </div>
         </div>
-        <!--script para botão Limpar campos--->
-        <script>
-            function limparForm() {
+    </div>
+    <!--script para botão Limpar campos--->
+    <script>
+        function limparForm() {
 
-                const input = document.getElementsByTagName("input");
+            const input = document.getElementsByTagName("input");
 
-                for (prop of input) {
-                    prop.value = "";
-                }
-
+            for (prop of input) {
+                prop.value = "";
             }
-        </script>
-    </main>
-    {% endblock %}
+
+        }
+    </script>
+</main>
+{% endblock %}
