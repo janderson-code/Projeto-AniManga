@@ -8,11 +8,11 @@
     </section>
     <h3 class="center card-panel blue-grey darken-4 white-text">- Animes | Em Breve -</h3>
     <div class="row">
-        {% for anime in animes.not_release %} {% include 'animanga/includes/title-card-img.html' with name=anime.name image=anime.posterImage sinopse=anime.synopsis%} {% endfor %}
+        {% for anime in animes.not_release %} {% include 'animanga/includes/title-card-img.html' with name=anime.name image=anime.posterImage episodios=anime.episodeCount sinopse=anime.synopsis%} {% endfor %}
     </div>
     <h3 class="center card-panel blue-grey darken-4 white-text">- Mangas | Destaques -</h3>
     <div class="row">
-        {% for manga in mangas.best_rating %} {% include 'animanga/includes/title-card-img.html' with name=manga.name image=manga.posterImage sinopse=manga.synopsis%} {% endfor %}
+        {% for manga in mangas.best_rating %} {% include 'animanga/includes/title-card-img.html' with name=manga.name image=manga.posterImage episodios=manga.chapterCount sinopse=manga.synopsis%} {% endfor %}
     </div>
 </main>
 
