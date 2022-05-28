@@ -20,5 +20,6 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('animes/', include('animes.urls')),
-    path('mangas/', include('mangas.urls'))
+    path('mangas/', include('mangas.urls')),
+    path('season/', include('season.urls'))
 ]

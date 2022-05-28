@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JBCine</title>
+    <link rel="stylesheet" href="/css/style.css" media="screen">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="nav-extended light-blue darken-2">
+            <div class="nav-wrapper ">
+                <ul id="nav-mobile" class="right">
+                    <li><a href="">Animes</a></li>
+                    <li><a href="">Mangas</a></li>
+            </div>
+            <div class="nav-header center ">
+                <h1>Projeto Animangá</h1>
+            </div>
+            <div class="nav-content">
+                <ul class="tabs tabs-transparent  blue-grey darken-4">
+                    <li class="tab "><a href="index.html">Home</a></li>
+                    <li class="tab "><a href="mostrarAnimes.html">Animes</a></li>
+                    <li class="tab"><a href="mostrarMangas.html">Mangás</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="row">
+            <div class="col s6 offset-s3">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title center">Cadastrar Mangá</span>
+                        <div class="row">
+                            <form class="col s12" method="POST" action="cadastrarFilme.php">
+                                <!--Input do Titulo--->
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input name="titulo" id="titulo" type="text" value="" required>
+                                        <label for="titulo">Titulo do Mangá</label>
+                                        <div class="red-text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Input do Gênero--->
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="genero" name="genero" type="text" value="">
+                                        <label for="genero">Gênero</label>
+                                        <div class="red-text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Input do Total Capitulos--->
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="total_episodes" name="total_episodes" type="text" value="">
+                                        <label for="total_episodes">Total de capítulos</label>
+                                        <div class="red-text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Input do Status--->
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="status" name="status" type="text" value="">
+                                        <label for="status">Status</label>
+                                        <div class="red-text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Input da Sinopse--->
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="sinopse" name="sinopse" class="materialize-textarea" value=""></textarea>
+                                        <label for="sinopse">Sinopse</label>
+                                        <div class="red-text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Input do Thumbnail Oficial--->
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="official_thumbnail" name="official_thumbnail" type="text" value="">
+                                        <label for="official_thumbnail">Thumbnail Oficial</label>
+                                        <div class="red-text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Input da Thumbnail Customizada --->
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="custom_thumbnail" name="custom_thumbnail" type="text" value="" required>
+                                        <label for="custom_thumbnail">Thumbail Customizada</label>
+                                        <div class="red-text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Input Kistu Link--->
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="kitsu_link" name="kitsu_link" type="text" value="" required>
+                                        <label for="kitsu_link">Kitsu Link</label>
+                                        <div class="red-text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Input Kistu Link--->
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="author" name="author" type="text" value="" required>
+                                        <label for="author">Autor</label>
+                                        <div class="red-text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Input Lançamento--->
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="is_lancamento" name="is_lancamento" type="text" value="" maxlength="1" required>
+                                        <label for="is_lancamento">Em Lancamento?</label>
+                                        <div class="red-text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-action">
+                                    <a class="btn waves-effect waves-light grey btn " href="">Cancelar</a>
+                                    <button class="btn waves-effect waves-light green " type="reset" name="action">Limpar
+                                <i class="material-icons right">send</i>
+                            </button>
+                                    <button class="btn waves-effect waves-light light-blue darken-2" value="enviar" type="submit" name="enviar">Cadastrar
+                                <i class="material-icons right">send</i>
+                            </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
