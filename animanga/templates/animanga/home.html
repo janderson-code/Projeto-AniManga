@@ -1,0 +1,60 @@
+{% extends 'animanga/base/header.html' %}
+{% load static %}
+{% block main %}
+<main>
+        <section class="galeria">
+            <div class="fotos">
+                <img src="{% static '/imgs/item01.jpg'%}" alt="a">
+                <img src="{% static '/imgs/item02.jpg'%}" alt="a">
+                <img src="{% static '/imgs/item03.jpg'%}" alt="a">
+                <img src="{% static '/imgs/item04.jpg'%}" alt="a">
+                <img src="{% static '/imgs/item01.jpg'%}" alt="a">
+            </div>
+        </section>
+        <h3 class="center card-panel blue-grey darken-4 white-text">Animes Recentemente Lançados</h3>
+        <div class="row">
+            <div class="card col s12 m6 l3 ">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="card-img" src="{% static '/imgs/item01.jpg'%}" alt="Venom capa" />
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4"><span
+                            class="card-title"></span><i class="material-icons right">more_vert</i></span>
+                    <p><a href="#">This is a link</a></p>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><span
+                            class="card-title"></span><i class="material-icons right">close</i></span>
+                    <p></p><br>
+                    <i></i>
+                   <a class="waves-effect waves-light btn-small blue" href="{% url 'editar_anime' 1%}"><i class="material-icons right">edit</i></a>
+                   <button class="waves-effect waves-light btn-small red " onclick=""><i class="material-icons right">delete</i></button>
+                </div>
+            </div>
+
+        </div>
+        <h3 class="center card-panel blue-grey darken-4 white-text ">Mangás Recentemente Lançados</h3>
+        <div class="row">
+            <div class="card col s12 m6 l3 ">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="card-img" src="{% static '/imgs/item01.jpg'%}" alt="Venom capa" />
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4"><span
+                            class="card-title"></span><i class="material-icons right">more_vert</i></span>
+                    <p><a href="#">This is a link</a></p>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><span
+                            class="card-title"></span><i class="material-icons right">close</i></span>
+                    <p></p><br>
+                    <i></i>
+                    <a class="waves-effect waves-light btn-small blue" href="{ url 'editar_anime' anime.id}"><i class="material-icons right">edit</i></a>
+                    <button class="waves-effect waves-light btn-small red " onclick=""><i class="material-icons right">delete</i></button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    {% endblock %}
