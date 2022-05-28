@@ -2,168 +2,25 @@
 {% load static %}
 {% block main %}
 <main>
-        <section class="galeria">
-            <div class="fotos">
-                <img src="{{popular_animes.0.coverImage}}" alt="a">
-                <img src="{{populars_animes.1.coverImage}}" alt="a">
-                <img src="{{popular_animes.2.coverImage}}" alt="a">
-                <img src="{{popular_animes.3.coverImage}}" alt="a">
-                <img src="{{popular_animes.4.coverImage}}" alt="a">
-                <img src="{{popular_animes.0.coverImage}}" alt="a">
-            </div>
-        </section>
-        <h3 class="center card-panel blue-grey darken-4 white-text">- Animes | Em Breve -</h3>
-        <div class="row">
-            <div class="card col s12 m6 l3 ">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="card-img" src="{{future_release_animes.0.posterImage}}" alt="Venom capa" />
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">more_vert</i></span>
-                    <p><a href="#">{{future_release_animes.0.title}}</a></p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">close</i></span>
-                    <p></p><br>
-                    <i></i>
-                   <a class="waves-effect waves-light btn-small blue" href="{% url 'editar_anime' 1%}"><i class="material-icons right">edit</i></a>
-                   <button class="waves-effect waves-light btn-small red " onclick=""><i class="material-icons right">delete</i></button>
-                </div>
-            </div>
-            <div class="card col s12 m6 l3 ">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="card-img" src="{{future_release_animes.1.posterImage}}" alt="Venom capa" />
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">more_vert</i></span>
-                    <p><a href="#">{{future_release_animes.1.title}}</a></p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">close</i></span>
-                    <p></p><br>
-                    <i></i>
-                   <a class="waves-effect waves-light btn-small blue" href="{% url 'editar_anime' 1%}"><i class="material-icons right">edit</i></a>
-                   <button class="waves-effect waves-light btn-small red " onclick=""><i class="material-icons right">delete</i></button>
-                </div>
-            </div>
-            <div class="card col s12 m6 l3 ">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="card-img" src="{{future_release_animes.2.posterImage}}" alt="Venom capa" />
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">more_vert</i></span>
-                    <p><a href="#">{{future_release_animes.2.title}}</a></p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">close</i></span>
-                    <p></p><br>
-                    <i></i>
-                   <a class="waves-effect waves-light btn-small blue" href="{% url 'editar_anime' 1%}"><i class="material-icons right">edit</i></a>
-                   <button class="waves-effect waves-light btn-small red " onclick=""><i class="material-icons right">delete</i></button>
-                </div>
-            </div>
-            <div class="card col s12 m6 l3 ">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="card-img" src="{{future_release_animes.3.posterImage}}" alt="Venom capa" />
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">more_vert</i></span>
-                    <p><a href="#">{{future_release_animes.3.title}}</a></p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">close</i></span>
-                    <p></p><br>
-                    <i></i>
-                   <a class="waves-effect waves-light btn-small blue" href="{% url 'editar_anime' 1%}"><i class="material-icons right">edit</i></a>
-                   <button class="waves-effect waves-light btn-small red " onclick=""><i class="material-icons right">delete</i></button>
-                </div>
-            </div>
-
+    <section class="galeria">
+        <div class="fotos">
+            {% for anime in animes.most_popular %}
+                <img src="{{anime.coverImage}}" alt="a">
+            {% endfor %}
         </div>
-        <h3 class="center card-panel blue-grey darken-4 white-text">- Mangas | Destaques -</h3>
-        <div class="row">
-            <div class="card col s12 m6 l3 ">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="card-img" src="{{best_mangas.0.posterImage}}" alt="Venom capa" />
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">more_vert</i></span>
-                    <p><a href="#">{{best_mangas.0.title}}</a></p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">close</i></span>
-                    <p></p><br>
-                    <i></i>
-                   <a class="waves-effect waves-light btn-small blue" href="{% url 'editar_anime' 1%}"><i class="material-icons right">edit</i></a>
-                   <button class="waves-effect waves-light btn-small red " onclick=""><i class="material-icons right">delete</i></button>
-                </div>
-            </div>
-            <div class="card col s12 m6 l3 ">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="card-img" src="{{best_mangas.1.posterImage}}" alt="Venom capa" />
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">more_vert</i></span>
-                    <p><a href="#">{{best_mangas.1.title}}</a></p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">close</i></span>
-                    <p></p><br>
-                    <i></i>
-                   <a class="waves-effect waves-light btn-small blue" href="{% url 'editar_anime' 1%}"><i class="material-icons right">edit</i></a>
-                   <button class="waves-effect waves-light btn-small red " onclick=""><i class="material-icons right">delete</i></button>
-                </div>
-            </div>
-            <div class="card col s12 m6 l3 ">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="card-img" src="{{best_mangas.2.posterImage}}" alt="Venom capa" />
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">more_vert</i></span>
-                    <p><a href="#">{{best_mangas.2.title}}</a></p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">close</i></span>
-                    <p></p><br>
-                    <i></i>
-                   <a class="waves-effect waves-light btn-small blue" href="{% url 'editar_anime' 1%}"><i class="material-icons right">edit</i></a>
-                   <button class="waves-effect waves-light btn-small red " onclick=""><i class="material-icons right">delete</i></button>
-                </div>
-            </div>
-            <div class="card col s12 m6 l3 ">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="card-img" src="{{best_mangas.3.posterImage}}" alt="Venom capa" />
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">more_vert</i></span>
-                    <p><a href="#">{{best_mangas.3.title}}</a></p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><span
-                            class="card-title"></span><i class="material-icons right">close</i></span>
-                    <p></p><br>
-                    <i></i>
-                   <a class="waves-effect waves-light btn-small blue" href="{% url 'editar_anime' 1%}"><i class="material-icons right">edit</i></a>
-                   <button class="waves-effect waves-light btn-small red " onclick=""><i class="material-icons right">delete</i></button>
-                </div>
-            </div>
+    </section>
+    <h3 class="center card-panel blue-grey darken-4 white-text">- Animes | Em Breve -</h3>
+    <div class="row">
+        {% for anime in animes.not_release %}
+            {% include 'animanga/includes/title-card-img.html' with name=anime.name image=anime.posterImage %}
+        {% endfor %}
+    </div>
+    <h3 class="center card-panel blue-grey darken-4 white-text">- Mangas | Destaques -</h3>
+    <div class="row">
+        {% for manga in mangas.best_rating %}
+            {% include 'animanga/includes/title-card-img.html' with name=manga.name image=manga.posterImage %}
+        {% endfor %}
+    </div>
+</main>
 
-        </div>
-    </main>
-
-    {% endblock %}
+{% endblock %}
