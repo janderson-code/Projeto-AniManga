@@ -77,13 +77,3 @@ Animação de carrossel
         margin-left: -400%;
     }
 }
-
-
-/*Css para deixar o car alinhado definindo limite de texto*/
-
-.card {
-    max-width: 500px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
