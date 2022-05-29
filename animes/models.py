@@ -6,8 +6,8 @@ STATUS = (('Em andamento', 'Em andamento'), ('Finalizado', 'Finalizado'),
 
 
 class Animes(models.Model):
-    user_id = models.ForeignKey()
-    season_id = models.ForeignKey()
+    user_id = models.ForeignKey
+    season_id = models.ForeignKey
     title = models.CharField(max_length=255)
     subtype = models.CharField(max_length=255)
     description = models.TextField()

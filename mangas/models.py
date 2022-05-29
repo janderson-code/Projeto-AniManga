@@ -1,14 +1,16 @@
 from django.db import models
 
 # Create your models here.
+STATUS = (('Em andamento', 'Em andamento'), ('Finalizado', 'Finalizado'),
+          ('Pausado', 'Pausado'), ('Cancelado', 'Cancelado'))
 
 
 class Mangas(models.Model):
-    user_id = models.ForeignKey()
+    user_id = models.ForeignKey
     title = models.CharField(max_length=255)
     subtype = models.CharField(max_length=255)
     description = models.TextField()
-    total_chapters = models.IntegerField()
+    total_chapters = models.IntegerField
     status = models.CharField(max_length=255, choices=STATUS)
     official_thumbnail = models.CharField(max_length=255)
     custom_thumbnail = models.CharField(max_length=255)

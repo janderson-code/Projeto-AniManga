@@ -6,7 +6,7 @@ from django.db import models
 class season(models.Model):
     season_name = models.CharField(max_length=255)
     season_year = models.DateTimeField()
-    total_animes - models.IntegerField()
+    total_animes = models.IntegerField()
     start_at = models.DateTimeField()
     end_at = models.DateTimeField()
     create_at = models.DateTimeField(auto_now_add=True)
