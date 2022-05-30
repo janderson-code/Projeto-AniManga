@@ -26,6 +26,9 @@
                     <li>
                         <a href="{% url 'logout' %}">Sair</a>
                     </li>
+                    <li>
+                        <a class="active"> Olá  {{user.get_username}}</a>
+                    </li>
                     {% else %}
                     <li>
                         <a href="{% url 'login' %}">Login</a>
