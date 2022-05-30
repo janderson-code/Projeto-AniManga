@@ -4,7 +4,7 @@ import random
 
 
 def home(request):
-    return render(request, 'animanga/home.html', {
+    return render(request, 'home.html', {
         'animes': {
             'most_popular': popular_titles(5, "anime"),
             'not_release': future_release_titles(4, "anime")
