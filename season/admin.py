@@ -1,6 +1,6 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import season
+from .models import Season
 
-admin.site.register(season)
+admin.site.register(Season)

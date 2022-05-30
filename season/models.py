@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 
-class season(models.Model):
+class Season(models.Model):
     season_name = models.CharField(max_length=255)
     season_year = models.DateTimeField()
     total_animes = models.IntegerField()

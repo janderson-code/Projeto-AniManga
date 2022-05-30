@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from season.models import season
+from season.models import Season
 
 # Create your models here.
 STATUS = (('Em andamento', 'Em andamento'), ('Finalizado', 'Finalizado'),
@@ -9,7 +9,7 @@ STATUS = (('Em andamento', 'Em andamento'), ('Finalizado', 'Finalizado'),
 
 class Anime(models.Model):
     user_id = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    season_id = models.ForeignKey(season, on_delete=models.CASCADE)
+    season_id = models.ForeignKey(Season, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     subtype = models.CharField(max_length=255)
     description = models.TextField()
