@@ -10,27 +10,26 @@
                     <div class="card-content">
                         <span class="card-title center">Login</span>
                         <div class="row">
-                            <form class="col s12" method="POST">
-                                {% csrf_token %}
-                                {{ login_form|crispy }}
+                                        <form class="col s12" method="POST">
+                                            {% csrf_token %}
+                                            {{ login_form|crispy }}
+                                        </div>
+                                        <div class="card-action">
+                                            <button class="btn waves-effect waves-light light-blue darken-2"
+                                                    value="enviar"
+                                                    type="submit"
+                                                    name="enviar">
+                                                Entrar
+                                                <i class="material-icons right">send</i>
+                                            </button>
+                                        </div>
+                                    </form>
                             </div>
-                            <div class="card-action">
-                                <button class="btn waves-effect waves-light light-blue darken-2"
-                                        value="enviar"
-                                        type="submit"
-                                        name="enviar">
-                                    Entrar
-                                    <i class="material-icons right">send</i>
-                                </button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!--script para botão Limpar campos-->
-    <script>
+                <!--script para botão Limpar campos-->
+                <script>
         function limparForm() {
 
             const input = document.getElementsByTagName("input");
@@ -40,6 +39,6 @@
             }
 
         }
-    </script>
-</main>
-{% endblock %}
+                </script>
+            </main>
+        {% endblock %}

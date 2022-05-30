@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import NewUserForm,AuthenticationFormCustom
+from .forms import NewUserForm, AuthenticationFormCustom
 from django.contrib.auth import login as user_login, authenticate, logout as user_logout  # add this
 from django.contrib import messages
 import requests
@@ -19,40 +19,46 @@ def home(request):
 
 
 def login(request):
-	if request.method == "POST":
-		form = AuthenticationFormCustom(request, data=request.POST)
-		print(f"login {form.is_valid()}")
-		if form.is_valid():
-			username = form.cleaned_data.get('username')
-			password = form.cleaned_data.get('password')
-			user = authenticate(username=username, password=password)
-			print(user)
-			if user is not None:
-				user_login(request, user)
-				return redirect("home")
-			else:
-				messages.error(request, "Usuário ou senha inválidos")
-		else:
-			messages.error(request, "Usuário ou senha inválidos.")
-	form = AuthenticationFormCustom()
-	return render(request,"login.html", {"login_form":form})
+
+	def auth_user(form):
+		username = form.cleaned_data.get('username')
+		password = form.cleaned_data.get('password')
+		return authenticate(username=username, password=password)
+	if request.method != "POST":
+		return render(request, "login.html", {'login_form': AuthenticationFormCustom()})
+	form = AuthenticationFormCustom(request, data=request.POST)
+	if not form.is_valid():
+		print(form)
+		messages.error(request, "Usuário ou senha incorretos.")
+		return render(request, "login.html", {'login_form': form})
+	user = auth_user(form)
+	if user is not None:
+		user_login(request, user)
+		return redirect("home")
+	else:
+		return render(request, "login.html", {"login_form": form})
 
 
 def register(request):
-	if request.method == "POST":
-		form = NewUserForm(request.POST)
-		print("Form messages: {0}".format(form.errors))
-		if form.is_valid():
-			user = form.save()
-			user_login(request, user)
-			messages.success(request, "Registration successful." )
-			return redirect("home")
-		messages.error(request, "Unsuccessful registration. Invalid information.")
-	form = NewUserForm()
-	return render(request,"register.html", {"register_form":form})
+	if request.method != "POST":
+		return render(request, "register.html", {'register_form': NewUserForm()})
+
+	form = NewUserForm(request.POST)
+	
+	if not form.is_valid():
+		messages.error(request, "Registração falhou. Por favor, tente novamente.")
+		return render(request, "register.html", {'register_form': form})
+	
+	user = form.save()
+	user_login(request, user)
+	return redirect("home")
+
+
+
 def logout(request):
 	user_logout(request)
-	return redirect('home')
+	return redirect('login')
+
 
 def get_title_image(images, imageType, desiredSize):
 
@@ -117,7 +123,7 @@ def request(type, parameters):
 
 def popular_titles(total, type, offset=30):
 	response = request(type, {
-					   'sort': '-userCount', 'page[limit]': total, 'page[offset]': random.randint(0, offset)})
+		'sort': '-userCount', 'page[limit]': total, 'page[offset]': random.randint(0, offset)})
 	titles = []
 	for data in response['data']:
 		titles.append(get_anime(data) if type == 'anime' else get_manga(data))
@@ -126,7 +132,7 @@ def popular_titles(total, type, offset=30):
 
 def future_release_titles(total, type, offset=30):
 	response = request(type, {
-					   'sort': '-startDate', 'page[limit]': total, 'page[offset]': random.randint(0, offset)})
+		'sort': '-startDate', 'page[limit]': total, 'page[offset]': random.randint(0, offset)})
 	titles = []
 	for data in response['data']:
 		titles.append(get_anime(data) if type == 'anime' else get_manga(data))
@@ -135,7 +141,7 @@ def future_release_titles(total, type, offset=30):
 
 def best_rating_titles(total, type, offset=50):
 	response = request(type, {
-					   'sort': 'ratingRank', 'page[limit]': total, 'page[offset]': random.randint(0, offset)})
+		'sort': 'ratingRank', 'page[limit]': total, 'page[offset]': random.randint(0, offset)})
 	titles = []
 	for data in response['data']:
 		titles.append(get_anime(data) if type == 'anime' else get_manga(data))
