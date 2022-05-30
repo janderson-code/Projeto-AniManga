@@ -77,3 +77,11 @@ Animação de carrossel
         margin-left: -400%;
     }
 }
+
+.login {
+    background-color: rgba(0, 0, 0, 0.711);
+    background-image: url("http://cdn.wallpaperhi.com/1920x1080/20140809/pokemon_www.wallpaperhi.com_41.jpg");
+    background-size: 100% 100%;
+    background-blend-mode: soft-light;
+    background-repeat: no-repeat;
+}
