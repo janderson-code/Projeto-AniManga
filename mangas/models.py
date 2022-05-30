@@ -5,7 +5,7 @@ STATUS = (('Em andamento', 'Em andamento'), ('Finalizado', 'Finalizado'),
           ('Pausado', 'Pausado'), ('Cancelado', 'Cancelado'))
 
 
-class Mangas(models.Model):
+class Manga(models.Model):
     user_id = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     subtype = models.CharField(max_length=255)

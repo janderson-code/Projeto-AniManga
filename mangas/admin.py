@@ -1,6 +1,6 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Mangas
+from .models import Manga
 
-admin.site.register(Mangas)
+admin.site.register(Manga)

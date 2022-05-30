@@ -7,7 +7,7 @@ STATUS = (('Em andamento', 'Em andamento'), ('Finalizado', 'Finalizado'),
           ('Pausado', 'Pausado'), ('Cancelado', 'Cancelado'))
 
 
-class Animes(models.Model):
+class Anime(models.Model):
     user_id = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     season_id = models.ForeignKey(season, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
