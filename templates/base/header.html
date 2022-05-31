@@ -1,97 +1,102 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Animangá</title>
-        <link rel="stylesheet" href="{% static 'style.css' %}" media="screen">
-        <!-- Compiled and minified CSS -->
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-              rel="stylesheet">
-    </head>
-    <body>
-        <header>
-            <nav class="nav-extended light-blue darken-2">
-                <div class="nav-wrapper ">
-                    <ul id="nav-mobile" class="right">
-                        {% if user.is_authenticated %}
-                            <li>
-                                <a href="{% url 'logout' %}">Sair</a>
-                            </li>
-                            <li>
-                                <a class="active">Olá  {{ user.get_username }}</a>
-                            </li>
-                        {% else %}
-                            <li>
-                                <a href="{% url 'login' %}">Login</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'register' %}">Cadastro</a>
-                            </li>
-                        {% endif %}
-                    </div>
-                    <div class="nav-header center ">
-                        <a href="{% url 'home' %}">
-                            <h1>Projeto Animangá</h1>
-                        </a>
-                    </div>
-                    <div class="nav-content">
-                        <ul class="tabs tabs-transparent  blue-grey darken-4">
-                            <li class="tab ">
-                                <a href="{% url 'home' %}">Home</a>
-                            </li>
-                            {% if user.is_authenticated %}
-                                <li class="tab ">
-                                    <a href="/animes">Animes</a>
-                                </li>
-                                <li class="tab">
-                                    <a href="/mangas">Mangás</a>
-                                </li>
-                                <li class="tab">
-                                    <a href="/season">Temporadas</a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </nav>
-            </header>
-            {% block content %}{% endblock %}
-            {% block main %}{% endblock %}
-            {% block footer %}
-                <footer class="page-footer blue-grey darken-4">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col l6 s12">
-                                <h5 class="white-text">ProjetoAnime</h5>
-                                <p class="grey-text text-lighten-4">O melhor dos animes e mangás estão aqui.</p>
-                            </div>
-                            <div class="col l4 offset-l2 s12">
-                                <h5 class="white-text">Mais</h5>
-                                <ul>
-                                    <li>
-                                        <a class="grey-text text-lighten-3" href="#">Animes Cadastradas</a>
-                                    </li>
-                                    <li>
-                                        <a class="grey-text text-lighten-3" href="#">Mangás Cadastrados</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="footer-copyright">
-                        <div class="container">
-                            © 2022 Copyright Text
-                            <a class="grey-text text-lighten-4 right" href="#!">Mais Links</a>
-                        </div>
-                    </div>
-                </footer>
-            {% endblock %}
-        </body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animangá</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" media="screen">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+</head>
+
+<body>
+    <header>
+        <nav class="nav-extended light-blue darken-2">
+            <div class="nav-wrapper ">
+                <ul id="nav-mobile" class="right">
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'logout' %}" style="margin-right:30px;">Sair</a>
+                    </li>
+
+                    <li>
+                        <a class="active" style="margin-right:30px;">Olá  {{ user.get_username }}</a>
+                    </li>
+                    {% if user.is_superuser %}
+                    <li>
+                        <a href="{% url 'admin:index' %}"><i class=" fa-solid fa-gear align-center " style="color:antiquewhite "></i></a>
+                    </li>
+                    {% endif %} {% else %}
+                    <li>
+                        <a href="{% url 'login' %} ">Login</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'register' %} ">Cadastro</a>
+                    </li>
+                    {% endif %}
+            </div>
+            <div class="nav-header center ">
+                <a href="{% url 'home' %} ">
+                    <h1>Projeto Animangá</h1>
+                </a>
+            </div>
+            <div class="nav-content ">
+                <ul class="tabs tabs-transparent blue-grey darken-4 ">
+                    <li class="tab ">
+                        <a href="{% url 'home' %} ">Home</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="tab ">
+                        <a href="/animes ">Animes</a>
+                    </li>
+                    <li class="tab ">
+                        <a href="/mangas ">Mangás</a>
+                    </li>
+                    <li class="tab ">
+                        <a href="/season ">Temporadas</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+    {% block content %}{% endblock %} {% block main %}{% endblock %} {% block footer %}
+    <footer class="page-footer blue-grey darken-4 ">
+        <div class="container ">
+            <div class="row ">
+                <div class="col l6 s12 ">
+                    <h5 class="white-text ">ProjetoAnime</h5>
+                    <p class="grey-text text-lighten-4 ">O melhor dos animes e mangás estão aqui.</p>
+                </div>
+                <div class="col l4 offset-l2 s12 ">
+                    <h5 class="white-text ">Mais</h5>
+                    <ul>
+                        <li>
+                            <a class="grey-text text-lighten-3 " href="# ">Animes Cadastradas</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3 " href="# ">Mangás Cadastrados</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright ">
+            <div class="container ">
+                © 2022 Copyright Text
+                <a class="grey-text text-lighten-4 right " href="#! ">Mais Links</a>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+</body>
