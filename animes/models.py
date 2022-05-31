@@ -19,8 +19,8 @@ class Anime(models.Model):
     custom_thumbnail = models.CharField(max_length=255)
     studio = models.CharField(max_length=255)
     kitsu_link = models.CharField(max_length=255)
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+    create_at = models.DateField(auto_now_add=True)
+    update_at = models.DateField(auto_now=True)
 
     # Mostrando o titulo do Anime no Django Adm
 
