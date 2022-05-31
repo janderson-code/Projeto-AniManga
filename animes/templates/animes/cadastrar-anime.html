@@ -12,24 +12,22 @@
                             <form class="col s12" method="POST">
                                 {% csrf_token %}
                                 {{ new_anime_form|crispy }}
-                                <div class="card-action">
-                                    <a class="btn waves-effect waves-light grey btn " href="">Cancelar</a>
-                                    <button class="btn waves-effect waves-light green " type="reset" name="action">Limpar
-                                <i class="material-icons right">send</i>
-                            </button>
-                                    <button class="btn waves-effect waves-light light-blue darken-2" value="enviar" type="submit" name="enviar">Cadastrar
-                                <i class="material-icons right">send</i>
-                            </button>
-                                </div>
-                            </form>
-                        </div>
+                                    <button class="btn-large send-button waves-effect waves-light light-blue darken-2"
+                                            value="enviar"
+                                            type="submit"
+                                            name="enviar">
+                                        Enviar
+                                        <i class="material-icons right">send</i>
+                                    </button>               
+                            </div>
+                        </form>
                     </div>
-
                 </div>
             </div>
         </div>
-        <!--script para botão Limpar campos-->
-        <script>
+    </div>
+    <!--script para botão Limpar campos-->
+    <script>
             function limparForm() {
 
                 const input = document.getElementsByTagName("input");
@@ -39,6 +37,6 @@
                 }
 
             }
-        </script>
-    </main>
-    {% endblock %}
+    </script>
+</main>
+{% endblock %}

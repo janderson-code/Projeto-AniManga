@@ -1,8 +1,7 @@
 from cProfile import label
-from email.policy import default
 from django import forms
 from season.models import Season
-from .models import Anime, STATUS
+from .models import Anime, STATUS, SUBTYPES
 
 
 class NewAnimeForm(forms.Form):
@@ -67,16 +66,11 @@ class NewAnimeForm(forms.Form):
             }
         )
     )
-    subtype = forms.CharField(
-        label="Subtipo",
-        max_length=255,
-        required=False,
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control'
-            }
-        )
-    )
+    subtype = forms.ChoiceField(
+		choices = SUBTYPES, 
+		label="Subtipo", 
+		initial='', 
+		widget=forms.Select(attrs={"class": 'form-controll browser-default'}), required=True)
 
     total_episodes = forms.IntegerField(
         label="Total de episódios",
@@ -101,7 +95,8 @@ class NewAnimeForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control'
+                'class': 'form-control',
+                'placeholder': 'https://media.kitsu.io/.../poster.jpg'
             }
         )
     )
@@ -112,7 +107,8 @@ class NewAnimeForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control'
+                'class': 'form-control',
+                'placeholder': 'https://meusanimes/.../anime-imagem.jpg'
             }
         )
     )
@@ -123,7 +119,8 @@ class NewAnimeForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control'
+                'class': 'form-control',
+                'placeholder': 'Studio X'
             }
         )
     )

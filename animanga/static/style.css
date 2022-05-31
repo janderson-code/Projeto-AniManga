@@ -28,7 +28,7 @@ nav ul li a.active,
 
 
 /*--------------------
-Animação de carrossel
+Animação de carrossel!!!!??
 ---------------------*/
 
 .galeria {
@@ -84,4 +84,9 @@ Animação de carrossel
     background-size: 100% 100%;
     background-blend-mode: soft-light;
     background-repeat: no-repeat;
+}
+
+.send-button {
+    padding-top: 10px;
+    width: 100%;
 }
