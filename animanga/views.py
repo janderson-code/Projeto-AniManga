@@ -24,6 +24,8 @@ def login(request):
 		username = form.cleaned_data.get('username')
 		password = form.cleaned_data.get('password')
 		return authenticate(username=username, password=password)
+	if request.user.is_authenticated:
+		return redirect('home')
 	if request.method != "POST":
 		return render(request, "login.html", {'login_form': AuthenticationFormCustom()})
 	form = AuthenticationFormCustom(request, data=request.POST)
