@@ -6,7 +6,7 @@ from .models import Season
 # Create your views here.
 
 def listar_animes(request):
-	return render(request, 'animes/listar-animes.html')
+	return render(request, 'animes/listar-animes.html', {'animes': Anime.objects.all()})
 
 def editar_anime(request,id):
 	return render(request, 'animes/editar-animes.html')
@@ -36,4 +36,5 @@ def cadastrar_anime(request):
 	return redirect('listar_animes')
 
 def deletar_anime(request,id):
-	return render(request, 'animes/deletar-anime.html')
+	Anime.objects.get(id=id).delete()
+	return redirect('listar_animes')
