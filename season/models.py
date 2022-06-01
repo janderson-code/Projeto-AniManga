@@ -17,4 +17,4 @@ class Season(models.Model):
     # Mostrando o titulo da temporada no Django Adm
 
     def __str__(self):
-        return f"{self.season_name} - {str(self.season_year)}"
+        return f"Season: {self.season_name}"

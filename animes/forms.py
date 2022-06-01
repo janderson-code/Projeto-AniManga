@@ -1,22 +1,24 @@
-from cProfile import label
+from email.policy import default
 from django import forms
 from season.models import Season
 from .models import Anime, STATUS, SUBTYPES
 
 
-class NewAnimeForm(forms.Form):
+class NewAnimeForm(forms.ModelForm):
     class Meta:
         model = Anime
         fields = (
             'title',
+            'seasons',
+            'kitsu_link',
             'subtype',
             'description',
             'total_episodes',
+            'release_date',
             'status',
             'official_thumbnail',
             'custom_thumbnail',
-            'studio',
-            'kitsu_link')
+            'studio')
 
     title = forms.CharField(
         label="Título",

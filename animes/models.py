@@ -10,9 +10,10 @@ SUBTYPES = (('TV', 'TV'), ('OVA', 'OVA'), ('ONA', 'ONA'),('Filme', 'Filme'), ('O
 
 class Anime(models.Model):
     user_id = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    season_id = models.ForeignKey(Season, on_delete=models.CASCADE)
+    season = models.ForeignKey(Season, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     subtype = models.CharField(max_length=255, choices=SUBTYPES)
+    release_date = models.DateField(null=True, blank=True)
     description = models.TextField()
     total_episodes = models.IntegerField()
     status = models.CharField(max_length=255, choices=STATUS)
@@ -26,4 +27,4 @@ class Anime(models.Model):
     # Mostrando o titulo do Anime no Django Adm
 
     def __str__(self):
-        return self.title
+        return f'Anime: {self.title} | Seasson: {self.season}'
