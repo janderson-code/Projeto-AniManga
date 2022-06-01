@@ -22,7 +22,7 @@ class NewUserForm(UserCreationForm):
     error_messages = {
         'password_mismatch': ("As senhas não são iguais."),
     }
-    email = forms.EmailField(required=True, label='E-mail', error_messages={
+    email = forms.EmailField(help_text='Required', required=True, label='E-mail', error_messages={
         'required': 'Esse campo não deve estar vazio.',
                     'invalid': 'Insira um e-mail válido.',
                     'unique': 'Esse e-mail já está em uso.'
