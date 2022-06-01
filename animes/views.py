@@ -1,10 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model
-
 from season.models import Season
 from .forms import NewAnimeForm
 from .models import Anime
-# Create your views here.
 
 def listar_animes(request):
 	return render(request, 'animes/listar-animes.html', {'animes': Anime.objects.all()})

@@ -1,5 +1,5 @@
 {% load static %}
-{% static '/animes/imgs/anime_default_img.jpg' as image_static %}
+{% static '/mangas/imgs/manga_default_img.jpeg' as image_static %}
 <div class="card col s12 m6 l3 ">
     <div class="card-image waves-effect waves-block waves-light ">
         <img class="card-img "
@@ -19,8 +19,8 @@
         <br>
         <i></i>
         <a class="waves-effect waves-light btn-small blue"
-           href="{% url 'editar_anime' id %}"><i class="material-icons right">edit</i></a>
+           href="{% url 'editar_manga' id %}"><i class="material-icons right">edit</i></a>
         <a class="waves-effect waves-light btn-small blue"
-           href="{% url 'delete_anime' id %}"><i class="material-icons right">delete</i></a>
+           href="{% url 'delete_manga' id %}"><i class="material-icons right">delete</i></a>
     </div>
 </div>
