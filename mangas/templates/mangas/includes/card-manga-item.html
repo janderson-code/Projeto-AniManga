@@ -1,11 +1,7 @@
-{% load static %}
-{% static '/mangas/imgs/manga_default_img.jpeg' as image_static %}
+{% load static %} {% static '/mangas/imgs/manga_default_img.jpeg' as image_static %}
 <div class="card col s12 m6 l3 ">
     <div class="card-image waves-effect waves-block waves-light ">
-        <img class="card-img "
-             src=" {% if image %} {{ image }} {% else %} {{ image_static }} {% endif %} "
-             alt="{{ name }}"
-             onerror="this.onerror=null; this.src='{{ image_static }}'"/>
+        <img class="card-img " src=" {% if image %} {{ image }} {% else %} {{ image_static }} {% endif %} " alt="{{ name }}" onerror="this.onerror=null; this.src='{{ image_static }}'" />
     </div>
     <div class="card-content ">
         <span class="card-title activator grey-text text-darken-4 "><span class="card-title "></span><i class="material-icons right ">more_vert</i></span>
@@ -18,9 +14,27 @@
         <p></p>
         <br>
         <i></i>
-        <a class="waves-effect waves-light btn-small blue"
-           href="{% url 'editar_manga' id %}"><i class="material-icons right">edit</i></a>
-        <a class="waves-effect waves-light btn-small blue"
-           href="{% url 'delete_manga' id %}"><i class="material-icons right">delete</i></a>
+        <a class="waves-effect waves-light btn-small blue" href="{% url 'editar_manga' id %}"><i class="material-icons right">edit</i></a>
+        <a class="waves-effect waves-light btn-small red" href="{% url 'delete_manga' id %}" onclick="excluir()"><i class="material-icons right" >delete</i></a>
     </div>
 </div>
+<script>
+    // Código para exclusão do item ao clicar no button de deletar.
+    function excluir(id) {
+        if (confirm('Deseja remover este mangá?' + '\nEsta ação não poderá ser desfeita.')) {
+            var url = "{% url 'delete_manga' 0%} ".replace('0', id)
+            $.ajax({
+                url: url,
+                type: "GET ",
+                success: function() {
+                    location.reload();
+                }
+            });
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var
+            instances = M.FormSelect.init(elems, options);
+    }); // Or with jQuery $(document).ready(function() { $('select').formSelect(); });
+</script>
