@@ -7,6 +7,28 @@ def listar_animes(request):
 	return render(request, 'animes/listar-animes.html', {'animes': Anime.objects.all()})
 
 
+def cadastro_auto_complete(request,id):
+	def post():
+		def auto_complete(search_term):
+			from animanga import kitsu_api
+			import re
+			if re.match(r"^\d+$"):
+				id =  search_term
+			elif re.match(r"^https://kitsu.io/anime/\d+$"):
+				id = re.findall(r"\d+", search_term)[0]
+			if id is not None:
+				anime = kitsu_api.get_anime('anime',id=id)
+				return NewAnimeForm(instance=anime)
+			anime = kitsu_api.get_anime('anime',name=search_term)
+			return NewAnimeForm(instance=anime)
+
+		anime = Anime.objects.get(id=id)
+		form = NewAnimeForm(request.POST,instance=anime)
+		filled_anime = anime
+		filled_anime.title = form.cleaned_data['title']
+		form  = auto_complete(form.cleaned_data['kitsu_link'])	
+		return render(request, 'animes/editar-animes.html', {'new_anime_form': form})
+
 def editar_anime(request,id):
 	def get():
 		anime = Anime.objects.get(id=id)
@@ -49,7 +71,7 @@ def cadastrar_anime(request):
 		return redirect('listar_animes')
 
 	if request.method == "POST":
-		post()
+		return post()
 	return get()
 
 def deletar_anime(request,id):

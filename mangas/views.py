@@ -35,7 +35,7 @@ def cadastrar_manga(request):
 			total_chapters=manga['total_chapters'],
 			official_thumbnail=manga['official_thumbnail'],
 			custom_thumbnail=manga['custom_thumbnail'],
-			studio=manga['studio'],
+			serialization=manga['serialization'],
 			kitsu_link=manga['kitsu_link'],
 			user_id=request.user
 		)
