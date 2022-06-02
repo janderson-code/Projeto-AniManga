@@ -6,6 +6,6 @@ from .models import Season
 
 
 @admin.register(Season)
-#Còdigo para apresentar botão de importação e exportação no admin page
+# Còdigo para apresentar botão de importação e exportação no admin page
 class Season(ImportExportModelAdmin):
     pass
