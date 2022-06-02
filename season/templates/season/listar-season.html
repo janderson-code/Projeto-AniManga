@@ -1,20 +1,20 @@
-{% extends 'base/header.html' %} 
-{% load static %} 
-{% block main %}
+{% extends 'base/header.html' %} {% load static %} {% block main %}
 </section class="filmes">
 <br><br>
 <div class="center-align">
     <a href="{% url 'cadastrar_season'%}" class="waves-effect waves-light btn"><i class="material-icons left">add</i>Clique aqui para Cadastrar Temporadas novas</a>
 </div>
+<br>
+<div class="center-align">
+    <a href="{% url 'download_season'%}" class="waves-effect waves-light btn"><i class="material-icons left">download</i>Clique aqui para Exportar suas Temporadas cadastradas para JSON</a>
+</div>
 <br><br>
 <div class="row">
-    {% for season in seasons %}
-            {% include 'season/includes/season-card-img.html' with season=season%}
-    {% endfor %}
+    {% for season in seasons %} {% include 'season/includes/season-card-img.html' with season=season%} {% endfor %}
 </div>
 <script>
     // Código para exclusão do item ao clicar no button de deletar.
-    function excluir(id,name=null) {
+    function excluir(id, name = null) {
         if (confirm('Deseja remover' + (name ? ` a temporada ${name} do Catálogo ?` : ' essa temporada ?') + '\nEsta ação não poderá ser desfeita.')) {
             var url = "{% url 'deletar_season' 0%}".replace('0', id)
             $.ajax({
@@ -32,8 +32,4 @@
             instances = M.FormSelect.init(elems, options);
     }); // Or with jQuery $(document).ready(function() { $('select').formSelect(); });
 </script>
-{% endblock %}
-
-{% block footer %}
-    
-{% endblock %}
+{% endblock %} {% block footer %} {% endblock %}

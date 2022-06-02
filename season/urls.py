@@ -7,4 +7,5 @@ urlpatterns = [
     path('cadastrar-season/', views.cadastrar_season, name='cadastrar_season'),
     path('editar-season/<int:id>/', views.editar_season, name='editar_season'),
     path('deletar-season/<int:id>/', views.deletar_season, name='deletar_season'),
+    path('download-season/', views.download, name='download_season'),
 ]

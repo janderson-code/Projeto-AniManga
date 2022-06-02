@@ -1,28 +1,22 @@
-{% extends 'base/header.html' %}
-{% load static %}
-{% block main %}
-    <br><br>
-    <div class="center-align">
-        <a href="{% url 'cadastrar_manga'%}" class="waves-effect waves-light btn"><i class="material-icons left">add</i>Clique aqui para Cadastrar Mangas novos</a>
-    </div>
-    <br><br>
-    <div class="row ">
-        {% for manga in mangas%}
-            {% include  "mangas/includes/card-manga-item.html" with name=manga.title image=manga.official_thumbnail id=manga.id%}
-        {% endfor%}
+{% extends 'base/header.html' %} {% load static %} {% block main %}
+<br><br>
+<div class="center-align">
+    <a href="{% url 'cadastrar_manga'%}" class="waves-effect waves-light btn"><i class="material-icons left">add</i>Clique aqui para Cadastrar Mangas novos</a>
+</div>
+<br>
+<div class="center-align">
+    <a href="{% url 'download_manga'%}" class="waves-effect waves-light btn"><i class="material-icons left">download</i>Clique aqui para Exportar seus Mangás cadastrados para JSON</a>
+</div>
+<br><br>
+<div class="row ">
+    {% for manga in mangas%} {% include "mangas/includes/card-manga-item.html" with name=manga.title image=manga.official_thumbnail id=manga.id%} {% endfor%}
 
-    </div>
+</div>
 <script>
-
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('select');
         var
             instances = M.FormSelect.init(elems, options);
     }); // Or with jQuery $(document).ready(function() { $('select').formSelect(); });
 </script>
-{% endblock %}
-
-{% block footer %}
-    
-{% endblock %}
-
+{% endblock %} {% block footer %} {% endblock %}
