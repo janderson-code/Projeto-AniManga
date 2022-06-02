@@ -50,7 +50,6 @@
                 const end = document.getElementsByName('end_at')[0];
                 const date_start = dateFormater(new Date(start.value),"-");
                 const date_end = dateFormater(new Date(end.value),"-");
-                console.log(date_start.replace(/\d\d\d\d/g, year))
                 start.value = date_start.replace(/\d\d\d\d/g, year);
                 end.value = date_end.replace(/\d\d\d\d/g, year);
                 start.setAttribute('min',`${year}-01-01`);

@@ -1,7 +1,7 @@
+import re
 from django.shortcuts import render, redirect
 from .forms import NewUserForm, AuthenticationFormCustom
 from django.contrib.auth import login as user_login, authenticate, logout as user_logout  # add this
-from django.contrib import messages
 import requests
 import random
 
@@ -20,41 +20,44 @@ def home(request):
 
 def login(request):
 
-	def auth_user(form):
-		username = form.cleaned_data.get('username')
-		password = form.cleaned_data.get('password')
-		return authenticate(username=username, password=password)
-	if request.user.is_authenticated:
-		return redirect('home')
-	if request.method != "POST":
+	def get():
+		if request.user.is_authenticated:
+			return redirect('home')
 		return render(request, "login.html", {'login_form': AuthenticationFormCustom()})
-	form = AuthenticationFormCustom(request, data=request.POST)
-	if not form.is_valid():
-		print(form)
-		messages.error(request, "Usuário ou senha incorretos.")
-		return render(request, "login.html", {'login_form': form})
-	user = auth_user(form)
-	if user is not None:
+
+	def post():
+		form = AuthenticationFormCustom(request, data=request.POST)
+		if not form.is_valid():
+			return render(request, "login.html", {'login_form': form})
+		user = authenticate(
+			username=form.cleaned_data.get('username'),
+			password=form.cleaned_data.get('password'))
+		if user is None:
+			return render(request, "login.html", {"login_form": form})
 		user_login(request, user)
 		return redirect("home")
-	else:
-		return render(request, "login.html", {"login_form": form})
+
+	if request.method == "POST":
+		return post()
+	return get()
 
 
 def register(request):
-	if request.method != "POST":
+
+	def get():
 		return render(request, "register.html", {'register_form': NewUserForm()})
+	def post():
+		form = NewUserForm(request.POST)
+		if not form.is_valid():
+			return render(request, "register.html", {'register_form': form})
+		user = form.save()
+		user_login(request, user)
+		return redirect("home")
+	if request.method == "POST":
+		return post()
+	return get()
 
-	form = NewUserForm(request.POST)
 	
-	if not form.is_valid():
-		messages.error(request, "Registração falhou. Por favor, tente novamente.")
-		return render(request, "register.html", {'register_form': form})
-	
-	user = form.save()
-	user_login(request, user)
-	return redirect("home")
-
 
 
 def logout(request):

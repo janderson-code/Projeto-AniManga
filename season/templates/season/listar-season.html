@@ -9,15 +9,16 @@
 <br><br>
 <div class="row">
     {% for season in seasons %}
-        {% include 'season/includes/season-card-img.html' with name=season.name year=season.year image=season.img%}
+            {% include 'season/includes/season-card-img.html' with season=season%}
     {% endfor %}
 </div>
 <script>
     // Código para exclusão do item ao clicar no button de deletar.
-    function excluir() {
-        if (confirm("Deseja remover a temporada X do Catálogo ? ")) {
+    function excluir(id,name=null) {
+        if (confirm('Deseja remover' + (name ? ` a temporada ${name} do Catálogo ?` : ' essa temporada ?') + '\nEsta ação não poderá ser desfeita.')) {
+            var url = "{% url 'deletar_season' 0%}".replace('0', id)
             $.ajax({
-                url: "{% url 'editar_season' 1%}",
+                url: url,
                 type: "GET",
                 success: function() {
                     location.reload();

@@ -8,7 +8,7 @@ def listar_animes(request):
 
 
 def editar_anime(request,id):
-	def default():
+	def get():
 		anime = Anime.objects.get(id=id)
 		form  = NewAnimeForm(instance=anime,initial={'seasons':anime.season,'subtype':anime.subtype})	
 		return render(request, 'animes/editar-animes.html', {'new_anime_form': form})
@@ -23,31 +23,34 @@ def editar_anime(request,id):
 			return redirect('listar_animes')
 	if request.method == 'POST':
 		return post()
-	return default()
+	return get()
 
 def cadastrar_anime(request):
-	if request.method != "POST":
-		return render(request, "animes/cadastrar-anime.html", {'new_anime_form': NewAnimeForm()})
-	form = NewAnimeForm(request.POST)
-	if not form.is_valid():
-		return render(request, "animes/cadastrar-anime.html", {'new_anime_form': form})
-	anime = form.cleaned_data
-	print(anime['seasons'])
-	Anime.objects.create(
-		title=anime['title'],
-		description=anime['description'],
-		status=anime['status'],
-		total_episodes=anime['total_episodes'],
-		official_thumbnail=anime['official_thumbnail'],
-		custom_thumbnail=anime['custom_thumbnail'],
-		studio=anime['studio'],
-		kitsu_link=anime['kitsu_link'],
-		subtype=anime['subtype'],
-		season=anime['seasons'],
-		user_id=request.user
-	)
+	def get():
+		return render(request, 'animes/cadastrar-anime.html', {'new_anime_form': NewAnimeForm()})
+	def post():
+		form = NewAnimeForm(request.POST)
+		if not form.is_valid():
+			return render(request, "animes/cadastrar-anime.html", {'new_anime_form': form})
+		anime = form.cleaned_data
+		Anime.objects.create(
+			title=anime['title'],
+			description=anime['description'],
+			status=anime['status'],
+			total_episodes=anime['total_episodes'],
+			official_thumbnail=anime['official_thumbnail'],
+			custom_thumbnail=anime['custom_thumbnail'],
+			studio=anime['studio'],
+			kitsu_link=anime['kitsu_link'],
+			subtype=anime['subtype'],
+			season=anime['seasons'],
+			user_id=request.user
+		)
+		return redirect('listar_animes')
 
-	return redirect('listar_animes')
+	if request.method == "POST":
+		post()
+	return get()
 
 def deletar_anime(request,id):
 	Anime.objects.get(id=id).delete()

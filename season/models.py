@@ -6,9 +6,8 @@ from pkg_resources import require
 SEASON_NAMES = (('Outono', 'Outono'), ('Inverno', 'Inverno'), ('Primavera', 'Primavera'), ('Verão', 'Verão'))
 
 class Season(models.Model):
-    season_name = models.CharField(max_length=255,choices=SEASON_NAMES, default='1',null=False,unique=True)
+    season_name = models.CharField(max_length=255,choices=SEASON_NAMES, default='1',null=False)
     season_year = models.PositiveIntegerField(default=datetime.now().year, null=False)
-    total_animes = models.PositiveIntegerField()
     start_at = models.DateField()
     end_at = models.DateField()
     create_at = models.DateTimeField(auto_now_add=True)
