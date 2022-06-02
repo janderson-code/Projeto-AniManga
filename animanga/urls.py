@@ -21,9 +21,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', views.login, name='login'),
     path("register/", views.register, name="register"),
-    path("logout", views.logout, name= "logout"),
+    path("logout", views.logout, name="logout"),
     path('', views.home, name='home'),
     path('animes/', include('animes.urls')),
     path('mangas/', include('mangas.urls')),
     path('season/', include('season.urls')),
+    path('download/', views.download, name='download'),
 ]
