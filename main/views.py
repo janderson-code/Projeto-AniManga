@@ -1,14 +1,14 @@
 import json
 import re
 from django.shortcuts import render, redirect
-from django.core import serializers
-from django.http import HttpResponse
+
 from animes.models import Anime
 from .forms import NewUserForm, AuthenticationFormCustom
 from django.contrib.auth import login as user_login, authenticate, logout as user_logout  # add this
 import requests
 import random
 import zipfile
+from django.http import HttpResponse
 
 
 def home(request):
@@ -157,23 +157,19 @@ def best_rating_titles(total, type, offset=50):
     return get_random_title(titles, total)
 
 
-def some_view(request):
-    qs = Anime.objects.all()
-
-
 def download(request):
     """Download archive zip file of code snippets"""
     response = HttpResponse(content_type='application/zip')
     zf = zipfile.ZipFile(response, 'w')
+
     # create the zipfile in memory using writestr
     # add a readme
     zf.writestr(README_NAME, README_CONTENT)
 
     # retrieve snippets from ORM and them to zipfile
     animes = Anime.objects.all()
-    animesJson = serializers.serialize('json', animes)
-    for animes in animes:
-        zf.writestr("tabela", animesJson)
+    for snippet in animes:
+        zf.writestr(snippet.title, snippet.description)
 
     # return as zipfile
     response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'
@@ -184,6 +180,10 @@ README_NAME = 'README.md'
 README_CONTENT = """
 ## PyBites Code Snippet Archive
 
-Este arquivo representa a tabela Anime com os dados em json
+Here is a zipfile with some useful code snippets.
+
+Produced for blog post https://pybit.es/django-zipfiles.html
+
+Keep calm and code in Python!
 """
-ZIPFILE_NAME = 'tabelaAnime.zip'
+ZIPFILE_NAME = 'tabelaAnimeZipada.zip'
