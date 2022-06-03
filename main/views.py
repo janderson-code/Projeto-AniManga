@@ -1,24 +1,21 @@
-import json
-import re
 from django.shortcuts import render, redirect
 from django.core import serializers
 from django.http import HttpResponse
 from animes.models import Anime
 from .forms import NewUserForm, AuthenticationFormCustom
 from django.contrib.auth import login as user_login, authenticate, logout as user_logout  # add this
-import requests
-import random
 import zipfile
+from animanga import kitsu_api as kitsu
 
 
 def home(request):
     return render(request, 'home.html', {
         'animes': {
-            'most_popular': popular_titles(5, "anime"),
-            'not_release': future_release_titles(4, "anime")
+            'most_popular': kitsu.popular_titles(5, "anime"),
+            'not_release': kitsu.best_rating_titles(4, "anime")
         },
         'mangas': {
-            'best_rating': best_rating_titles(4, "manga")
+            'best_rating': kitsu.best_rating_titles(4, "manga")
         }
     })
 
@@ -68,93 +65,11 @@ def logout(request):
     user_logout(request)
     return redirect('login')
 
+def sobre_desenvolvedores(request):
+    return render(request, 'sobre-desenvolvedores.html')
 
-def get_title_image(images, imageType, desiredSize):
-
-    imagesSize = ['large', 'original', 'medium', 'tiny']
-    if imageType == 'cover':
-        imagesTypes = ['coverImage', 'posterImage']
-    elif imageType == 'poster':
-        imagesTypes = ['posterImage', 'coverImage']
-
-    for imageType in imagesTypes:
-        if not images[imageType]:
-            continue
-        if images[imageType][desiredSize]:
-            return images[imageType][desiredSize]
-        for imageSize in imagesSize:
-            if imagesSize == desiredSize or not images[imageType][imageSize]:
-                continue
-            return images[imageType][imageSize]
-
-
-def get_base_title(attr):
-    title = {
-        'name': attr['canonicalTitle'],
-        'synopsis': attr['synopsis'],
-        'coverImage':  get_title_image(attr, 'cover', 'large'),
-        'posterImage': get_title_image(attr, 'poster', 'medium'),
-        'abbreviatedTitles': attr['abbreviatedTitles'],
-        'averageRating': attr['averageRating'],
-    }
-    return title
-
-
-def get_anime(data):
-    attr = data['attributes']
-    anime = get_base_title(attr)
-    anime['episodeCount'] = attr['episodeCount']
-    return anime
-
-
-def get_manga(data):
-    attr = data['attributes']
-    manga = get_base_title(attr)
-    manga["chapterCount"] = attr['chapterCount']
-    return manga
-
-
-def get_random_title(titles, total):
-    return random.sample(titles, total)
-
-# Will create a url and request -> https://kitsu.io/api/edge/anime?sort=-userCount&page[limit]=20
-
-
-def request(type, parameters):
-    url = "https://kitsu.io/api/edge/{0}?".format(type)
-    for i, (key, value) in enumerate(parameters.items()):
-        url += "{0}={1}".format(key, value)
-        if i < len(parameters)-1:
-            url += "&"
-    print(url)
-    return requests.get(url).json()
-
-
-def popular_titles(total, type, offset=30):
-    response = request(type, {
-        'sort': '-userCount', 'page[limit]': total, 'page[offset]': random.randint(0, offset)})
-    titles = []
-    for data in response['data']:
-        titles.append(get_anime(data) if type == 'anime' else get_manga(data))
-    return get_random_title(titles, total)
-
-
-def future_release_titles(total, type, offset=30):
-    response = request(type, {
-        'sort': '-startDate', 'page[limit]': total, 'page[offset]': random.randint(0, offset)})
-    titles = []
-    for data in response['data']:
-        titles.append(get_anime(data) if type == 'anime' else get_manga(data))
-    return get_random_title(titles, total)
-
-
-def best_rating_titles(total, type, offset=50):
-    response = request(type, {
-        'sort': 'ratingRank', 'page[limit]': total, 'page[offset]': random.randint(0, offset)})
-    titles = []
-    for data in response['data']:
-        titles.append(get_anime(data) if type == 'anime' else get_manga(data))
-    return get_random_title(titles, total)
+def sobre_projeto(request):
+    return render(request, 'sobre-projeto.html')
 
 
 def some_view(request):
@@ -172,8 +87,7 @@ def download(request):
     # retrieve snippets from ORM and them to zipfile
     animes = Anime.objects.all()
     animesJson = serializers.serialize('json', animes)
-    for animes in animes:
-        zf.writestr("tabelaAnime", animesJson)
+    zf.writestr("tabelaAnime.json", animesJson)
 
     # return as zipfile
     response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'

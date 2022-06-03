@@ -11,7 +11,7 @@ def request(type, parameters={},base_url=''):
         base_url += "{0}={1}".format(key, value)
         if i < len(parameters)-1:
             base_url += "&"
-        print(base_url)
+    print(base_url)
     return requests.get(base_url).json()
 
 def search_by(type,name=None, id=None, details=False):

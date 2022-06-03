@@ -26,5 +26,7 @@ urlpatterns = [
     path('animes/', include('animes.urls')),
     path('mangas/', include('mangas.urls')),
     path('season/', include('season.urls')),
+    path('sobre/desenvolvedores', views.sobre_desenvolvedores, name='sobre_desenvolvedores'),
+    path('sobre/projeto', views.sobre_projeto, name='sobre_projeto'),
     path('download/', views.download, name='download'),
 ]
