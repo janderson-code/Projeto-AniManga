@@ -72,8 +72,7 @@ def download(request):
     # retrieve snippets from ORM and them to zipfile
     season = Season.objects.all()
     seasonJson = serializers.serialize('json', season)
-    for season in season:
-        zf.writestr("tabelaSeason", seasonJson)
+    zf.writestr("tabelaSeason.json", seasonJson)
 
     # return as zipfile
     response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'

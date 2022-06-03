@@ -101,8 +101,7 @@ def download(request):
     # retrieve snippets from ORM and them to zipfile
     mangas = Manga.objects.all()
     mangasJson = serializers.serialize('json', mangas)
-    for mangas in mangas:
-        zf.writestr("tabelaManga", mangasJson)
+    zf.writestr("tabelaManga.json", mangasJson)
 
     # return as zipfile
     response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'

@@ -7,6 +7,6 @@ urlpatterns = [
     path('cadastrar-anime/', views.cadastrar_anime, name='cadastrar_anime'),
     path('editar-anime/<int:id>/', views.editar_anime, name='editar_anime'),
     path('deletar-anime/<int:id>/', views.deletar_anime, name='delete_anime'),
-    path('auto-complete/', views.cadastro_auto_complete, name='auto_complete'),
+    path('auto-complete/', views.cadastro_auto_complete, name='anime_auto_complete'),
     path('download-anime/', views.download, name='download_anime'),
 ]
