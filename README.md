@@ -1,7 +1,14 @@
 # Projeto AniManga
  Projeto CRUD De mangás e Animes com Django 
+<div style="display: inline_block">
+ 
+ <img align="center" alt="Rafa-Python" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" />
 
-<img src="gitHubReadmeImage/app.gif">
+ <img align="center" alt="Rafa-Python" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" />
+
+ <img src="gitHubReadmeImage/app.gif">
+
+</div><br><br>
 
 <main>
         <div class="container">
