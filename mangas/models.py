@@ -15,7 +15,7 @@ class Manga(models.Model):
     official_thumbnail = models.CharField(max_length=255)
     custom_thumbnail = models.CharField(max_length=255)
     kitsu_link = models.CharField(max_length=255)
-    serialization = models.CharField(max_length=255)
+    author = models.CharField(max_length=255)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 

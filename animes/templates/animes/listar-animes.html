@@ -13,10 +13,22 @@
 
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('select');
-        var
-            instances = M.FormSelect.init(elems, options);
-    }); // Or with jQuery $(document).ready(function() { $('select').formSelect(); });
+        function excluir(id, name = null) {
+            if (confirm('Deseja remover este anime do catálogo?' + '\nEsta ação não poderá ser desfeita.')) {
+                var url = "{% url 'delete_anime' 0%} ".replace('0', id)
+                 $.ajax({
+                     url: url,
+                    type: "GET",
+                    success: function() {
+                        location.reload();
+                    }
+                });
+            }
+        }   
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var
+                instances = M.FormSelect.init(elems, options);
+        }); // Or with jQuery $(document).ready(function() { $('select').formSelect(); });
 </script>
 {% endblock %} {% block footer %} {% endblock %}

@@ -12,13 +12,13 @@
                             <form class="col s12" method="POST">
                                 {% csrf_token %}
                                 {{ new_anime_form|crispy }}
-                                    <button class="btn-large send-button waves-effect waves-light light-blue darken-2"
-                                            value="enviar"
-                                            type="submit"
-                                            name="enviar">
-                                        Enviar
-                                        <i class="material-icons right">send</i>
-                                    </button>               
+                                <button class="btn-large send-button waves-effect waves-light light-blue darken-2"
+                                        value="enviar"
+                                        type="submit"
+                                        name="enviar">
+                                    Enviar
+                                    <i class="material-icons right">send</i>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -36,6 +36,66 @@
                     prop.value = "";
                 }
 
+            }
+            function loading(){
+                const loadHtml = 
+                `
+                <div class="progress">
+                    <div class="indeterminate"></div>
+                </div>
+                      
+                `
+                const div = document.createElement("div")
+                div.innerHTML = loadHtml;
+                document.getElementById("id_auto_complete").parentElement.appendChild(div);
+                return div
+            }
+            function autoComplete(){
+                if(document.querySelector(".progress")){
+                    return
+                }
+                let title = document.getElementById('id_title').value
+                let kitsuLink = document.getElementById('id_kitsu_link').value
+                if(!kitsuLink)
+                    return
+                let cookie = document.cookie
+                let csrfToken = cookie.substring(cookie.indexOf('=') + 1)
+                const load = loading()
+                $.ajax({
+                    url: "{% url 'auto_complete'%}",
+                    type: "POST",
+                    data: JSON.stringify({title, kitsuLink}),
+                    contentType: 'application/json; charset=utf-8',
+                    headers: {
+                        'X-CSRFToken': csrfToken
+                    },
+                    success: function(response) {
+                        jsonResponse = JSON.parse(response)
+                        let status = {"current": 1,
+                        "finished": 2,
+                        "unreleased": 0,
+                        "upcoming": 0,
+                        "tba": 0
+                        }
+                        let subtypes = {
+                            "ONA": 2,
+                            "OVA": 1,
+                            "movie": 3,
+                            "special": 4,
+                            "TV": 0,
+                            "music": "0"
+                        }
+                        document.getElementById("id_title").value = jsonResponse.name
+                        document.getElementById("id_description").value = jsonResponse.synopsis
+                        document.getElementById("id_studio").value = jsonResponse.studio
+                        document.getElementById('id_release_date').value =jsonResponse.startDate
+                        document.getElementById('id_total_episodes').value = jsonResponse.episodeCount > 0 ? jsonResponse.episodeCount : 0
+                        document.querySelectorAll('#id_status option')[status[jsonResponse["status"]]].selected = true
+                        document.querySelectorAll('#id_subtype option')[subtypes[jsonResponse["subtype"]]].selected = true
+                        document.getElementById("id_official_thumbnail").value = jsonResponse.posterImage
+                        load.remove()
+                    }
+                 });
             }
     </script>
 </main>

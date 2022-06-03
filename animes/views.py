@@ -1,3 +1,4 @@
+import json
 import zipfile
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -5,33 +6,43 @@ from season.models import Season
 from .forms import NewAnimeForm
 from .models import Anime
 from django.core import serializers
+from django.http import JsonResponse
 
 
 def listar_animes(request):
     return render(request, 'animes/listar-animes.html', {'animes': Anime.objects.all()})
 
+def json_body(request):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    return body
 
-def cadastro_auto_complete(request, id):
+def cadastro_auto_complete(request):
     def post():
         def auto_complete(search_term):
             from animanga import kitsu_api
             import re
-            if re.match(r"^\d+$"):
+            id = None
+            if re.match(r"^\d+$", search_term):
                 id = search_term
-            elif re.match(r"^https://kitsu.io/anime/\d+$"):
+            elif re.match(r"^https://kitsu.io/anime/\d+$", search_term):
                 id = re.findall(r"\d+", search_term)[0]
             if id is not None:
-                anime = kitsu_api.get_anime('anime', id=id)
-                return NewAnimeForm(instance=anime)
-            anime = kitsu_api.get_anime('anime', name=search_term)
-            return NewAnimeForm(instance=anime)
+                anime = kitsu_api.search_by("anime",id=id,details=True)
+                return json.dumps(anime)
+            anime = kitsu_api.search_by("anime",name=search_term,details=True)
+            return json.dumps(anime)
 
-        anime = Anime.objects.get(id=id)
-        form = NewAnimeForm(request.POST, instance=anime)
-        filled_anime = anime
-        filled_anime.title = form.cleaned_data['title']
-        form = auto_complete(form.cleaned_data['kitsu_link'])
-        return render(request, 'animes/editar-animes.html', {'new_anime_form': form})
+        content = json_body(request)
+        title = content['title']
+        kitsu_link = content['kitsuLink']
+        if not kitsu_link:
+            redirect('cadastrar_anime')
+        return JsonResponse(auto_complete(kitsu_link), safe=False)
+    if request.method == 'POST':
+        return post()
+    return redirect('listar_animes')
+
 
 
 def editar_anime(request, id):

@@ -1,3 +1,4 @@
+import json
 import zipfile
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -5,11 +6,16 @@ from yaml import serialize
 from .forms import NewMangaForm
 from .models import Manga
 from django.core import serializers
+from django.http import JsonResponse
 
 
 def listar_mangas(request):
     return render(request, 'mangas/listar-mangas.html', {'mangas': Manga.objects.all()})
 
+def json_body(request):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    return body
 
 def editar_manga(request, id):
     def get():
@@ -28,6 +34,31 @@ def editar_manga(request, id):
     return get()
 
 
+def cadastro_auto_complete(request):
+    def post():
+        def auto_complete(search_term):
+            from animanga import kitsu_api
+            import re
+            id = None
+            if re.match(r"^\d+$", search_term):
+                id = search_term
+            elif re.match(r"^https://kitsu.io/manga/\d+$", search_term):
+                id = re.findall(r"\d+", search_term)[0]
+            if id is not None:
+                manga = kitsu_api.search_by("manga",id=id,details=True)
+                return json.dumps(manga)
+            manga = kitsu_api.search_by("manga",name=search_term,details=True)
+            return json.dumps(manga)
+
+        content = json_body(request)
+        kitsu_link = content['kitsuLink']
+        if not kitsu_link:
+            redirect('cadastrar_manga')
+        return JsonResponse(auto_complete(kitsu_link), safe=False)
+    if request.method == 'POST':
+        return post()
+    return redirect('listar_mangas')
+
 def cadastrar_manga(request):
     def get():
         return render(request, 'mangas/cadastrar-manga.html', {'new_manga_form': NewMangaForm()})
@@ -44,7 +75,7 @@ def cadastrar_manga(request):
             total_chapters=manga['total_chapters'],
             official_thumbnail=manga['official_thumbnail'],
             custom_thumbnail=manga['custom_thumbnail'],
-            serialization=manga['serialization'],
+            author=manga['author'],
             kitsu_link=manga['kitsu_link'],
             user_id=request.user
         )

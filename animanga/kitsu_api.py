@@ -57,7 +57,7 @@ def get_productions(type,rel,role):
     productions = request(type,base_url=rel['productions']['links']['related'])['data']
     for production in productions:
         if production['attributes']['role'] == role:
-           company = request(type,base_url=production['relationships']['studio']['links']['related'])
+           company = request(type,base_url=production['relationships']['company']['links']['related'])
            return company['data']['attributes']['name']
     raise ValueError(f'Role {role} not found')
 
@@ -73,8 +73,14 @@ def get_anime(data,details=False):
     attr = data['attributes']
     anime = get_base_title(attr)
     anime['episodeCount'] = attr['episodeCount']
+    anime['subtype'] = attr['subtype']
+    anime['status'] = attr['status']
+    anime['startDate'] = attr['startDate']
     if details:
-        anime['studio'] = get_productions('anime',data['relationships'],'studio')
+        try:
+            anime['studio'] = get_productions('anime',data['relationships'],'studio')
+        except ValueError:
+            anime['studio'] = "[Estúdio não encontrado]"
     return anime
 
 
@@ -82,8 +88,14 @@ def get_manga(data,details=False):
     attr = data['attributes']
     manga = get_base_title(attr)
     manga["chapterCount"] = attr['chapterCount']
+    manga['subtype'] = attr['subtype']
+    manga['status'] = attr['status']
+    manga['startDate'] = attr['startDate']
     if details:
-        manga['author'] = get_staff('manga',data['relationships'],'Story & Art')
+        try:
+            manga['author'] = get_staff('manga',data['relationships'],'Story & Art')
+        except ValueError:
+            manga['author'] = "[Autor não encontrado]"
     return manga
 
 

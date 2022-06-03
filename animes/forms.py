@@ -11,6 +11,7 @@ class NewAnimeForm(forms.ModelForm):
             'title',
             'seasons',
             'kitsu_link',
+            'auto_complete',
             'subtype',
             'description',
             'total_episodes',
@@ -30,6 +31,19 @@ class NewAnimeForm(forms.ModelForm):
             }
         )
     )
+    auto_complete = forms.CharField(
+        label="Preenche automaticamente o restante dos campos com kitsu",
+        max_length=255,
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type':'button',
+                'value': 'Preencher',
+                'onclick': 'autoComplete()'
+            }
+        )
+    ) 
     seasons = forms.ModelChoiceField(
         queryset=Season.objects.all(),
         widget=forms.Select(attrs={
@@ -60,7 +74,6 @@ class NewAnimeForm(forms.ModelForm):
 
     description = forms.CharField(
         label="Descrição",
-        max_length=255,
         required=False,
         widget=forms.Textarea(
             attrs={
