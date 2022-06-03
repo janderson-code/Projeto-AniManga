@@ -62,7 +62,7 @@
                 let csrfToken = cookie.substring(cookie.indexOf('=') + 1)
                 const load = loading()
                 $.ajax({
-                    url: "{% url 'auto_complete'%}",
+                    url: "{% url 'anime_auto_complete'%}",
                     type: "POST",
                     data: JSON.stringify({title, kitsuLink}),
                     contentType: 'application/json; charset=utf-8',
