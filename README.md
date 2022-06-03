@@ -1,7 +1,7 @@
 # Projeto AniManga
  Projeto CRUD De mangás e Animes com Django 
 
-<img src:"gitHubReadmeImage/app.gif">
+<img src="gitHubReadmeImage/app.gif">
 
 <main>
         <div class="container">
