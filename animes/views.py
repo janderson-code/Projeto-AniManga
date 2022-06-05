@@ -10,7 +10,7 @@ from django.http import JsonResponse
 
 
 def listar_animes(request):
-    return render(request, 'animes/listar-animes.html', {'animes': Anime.objects.all()})
+    return render(request, 'animes/listar-animes.html', {'animes': Anime.objects.all(), 'current_user': request.user})
 
 def json_body(request):
     body_unicode = request.body.decode('utf-8')

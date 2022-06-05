@@ -9,7 +9,11 @@
 </div>
 <br><br>
 <div class="row ">
-    {% for anime in animes%} {% include "animes/includes/card-anime-item.html" with name=anime.title image=anime.official_thumbnail id=anime.id%} {% endfor%}
+    {% for anime in animes%} 
+        {% if current_user.id == anime.user_id.id %}
+            {% include "animes/includes/card-anime-item.html" with name=anime.title image=anime.official_thumbnail id=anime.id%}
+        {% endif %}
+    {% endfor%}
 
 </div>
 <script>
