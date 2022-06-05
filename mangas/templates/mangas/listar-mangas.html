@@ -9,7 +9,11 @@
 </div>
 <br><br>
 <div class="row ">
-    {% for manga in mangas%} {% include "mangas/includes/card-manga-item.html" with name=manga.title image=manga.official_thumbnail id=manga.id%} {% endfor%}
+    {% for manga in mangas%} 
+        {%if manga.user_id.id == current_user.id%}
+            {% include "mangas/includes/card-manga-item.html" with name=manga.title image=manga.official_thumbnail id=manga.id%} 
+        {%endif%}
+    {% endfor%}
 
 </div>
 <script>
