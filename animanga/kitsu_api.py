@@ -17,14 +17,16 @@ def request(type, parameters={},base_url=''):
 def search_by(type,name=None, id=None, details=False):
     if name is None and id is None:
         raise ValueError('name or id must be provided')
-    paramenter_filter =  {'filter[text]': name} if name else {'filter[id]': id}
-    response = request(type,paramenter_filter)
+    parameter_filter =  {'filter[text]': name} if name else {'filter[id]': id}
+    response = request(type,parameter_filter)
     if type == 'anime':
         return get_anime(response['data'][0],details)
     return get_manga(response['data'][0],details)
 
 def get_random_title(titles, total):
-	return ra.sample(titles, total)
+    print(len(titles))
+    print(total)
+    return ra.sample(titles, total)
 
 def get_base_title(attr):
     def get_title_image(images, imageType, desiredSize):
@@ -72,6 +74,7 @@ def get_staff(type,rel,role):
 def get_anime(data,details=False):
     attr = data['attributes']
     anime = get_base_title(attr)
+    anime["kitsuPage"] = f"https://kitsu.io/anime/{attr['slug'] if attr['slug'] else data['id']}"
     anime['episodeCount'] = attr['episodeCount']
     anime['subtype'] = attr['subtype']
     anime['status'] = attr['status']
@@ -87,6 +90,7 @@ def get_anime(data,details=False):
 def get_manga(data,details=False):
     attr = data['attributes']
     manga = get_base_title(attr)
+    manga["kitsuPage"] = f"https://kitsu.io/manga/{attr['slug'] if attr['slug'] else data['id']}"
     manga["chapterCount"] = attr['chapterCount']
     manga['subtype'] = attr['subtype']
     manga['status'] = attr['status']
@@ -102,7 +106,7 @@ def get_manga(data,details=False):
 def popular_titles(total, type, offset=30, random=True):
     response = request(type, parameters={
             'sort': '-userCount',
-            'page[limit]': total,
+            'page[limit]': 20,
             'page[offset]':  ra.randint(0, offset) if random else offset
          })
     titles = []
@@ -116,7 +120,7 @@ def popular_titles(total, type, offset=30, random=True):
 def future_release_titles(total, type, offset=30, random=True):
     response = request(type, parameters= {
         'sort': '-startDate',
-        'page[limit]': total,
+        'page[limit]': 20,
         'page[offset]': ra.randint(0, offset) if random else offset
     }
     )
@@ -131,8 +135,8 @@ def future_release_titles(total, type, offset=30, random=True):
 def best_rating_titles(total, type, offset=50, random=True):
     response = request(type, parameters= {
         'sort': 'ratingRank',
-        'page[limit]':
-        total, 'page[offset]': ra.randint(0, offset) if random else offset
+        'page[limit]': 20,
+        'page[offset]': ra.randint(0, offset) if random else offset
     })
     titles = []
     for data in response['data']:

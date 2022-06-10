@@ -8,9 +8,9 @@ class NewMangaForm(forms.ModelForm):
 	class Meta:
 		model = Manga
 		fields = (
-			'title',
 			'kitsu_link',
 			'auto_complete',
+			'title',
 			'subtype',
 			'description',
 			'total_chapters',
@@ -19,7 +19,19 @@ class NewMangaForm(forms.ModelForm):
 			'official_thumbnail',
 			'custom_thumbnail',
 			'author')
-
+	auto_complete = forms.CharField(
+		label="Preenche automaticamente o restante dos campos com kitsu",
+		max_length=255,
+		required=False,
+		widget=forms.TextInput(
+			attrs={
+				'class': 'waves-effect waves-light btn-small disabled',
+				'type':'button',
+				'value': 'Pesquisar',
+				'onclick': 'autoComplete()'
+			}
+		)
+	) 
 	title = forms.CharField(
 		label="Título",
 		max_length=255,
@@ -37,7 +49,7 @@ class NewMangaForm(forms.ModelForm):
 		required=False,
 		widget=forms.TextInput(
 			attrs={
-				'placeholder': 'Coloque aqui o link do anime no Kitsu ou digite seu id',
+                'placeholder': 'Adicione o id, link ou nome do anime que deseja pesquisar',
 				'class': 'form-control'
 			}
 		)
@@ -45,6 +57,7 @@ class NewMangaForm(forms.ModelForm):
 	release_date = forms.DateField(
 		label="Data de lançamento",
 		required=False,
+		input_formats=['%Y-%m-%d'],
 		widget=forms.DateInput(attrs={
 			'class': 'form-control',
 			'type': 'date'
@@ -68,7 +81,7 @@ class NewMangaForm(forms.ModelForm):
 
 	total_chapters = forms.IntegerField(
 		label="Total de capitulos",
-		required=False,
+		required=True,
 		widget=forms.NumberInput(
 			attrs={
 				'class': 'form-control',
@@ -76,19 +89,7 @@ class NewMangaForm(forms.ModelForm):
 			}
 		)
 	)
-	auto_complete = forms.CharField(
-		label="Preenche automaticamente o restante dos campos com kitsu",
-		max_length=255,
-		required=False,
-		widget=forms.TextInput(
-			attrs={
-				'class': 'form-control',
-				'type':'button',
-				'value': 'Preencher',
-				'onclick': 'autoComplete()'
-			}
-		)
-	) 
+
 	status = forms.ChoiceField(
 		choices = STATUS, 
 		label="Status", 

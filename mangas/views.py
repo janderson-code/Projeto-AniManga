@@ -1,4 +1,6 @@
+from datetime import datetime
 import json
+from platform import release
 import zipfile
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -73,6 +75,7 @@ def cadastrar_manga(request):
             description=manga['description'],
             status=manga['status'],
             total_chapters=manga['total_chapters'],
+            release_date=manga['release_date'],
             official_thumbnail=manga['official_thumbnail'],
             custom_thumbnail=manga['custom_thumbnail'],
             author=manga['author'],

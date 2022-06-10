@@ -1,8 +1,15 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 # Create your models here.
-STATUS = (('Em andamento', 'Em andamento'), ('Finalizado', 'Finalizado'),
-          ('Pausado', 'Pausado'), ('Cancelado', 'Cancelado'))
+
+STATUS = (
+    ('Em andamento', 'Em andamento'), 
+    ('Finalizado', 'Finalizado'),
+    ('Não lançado','Não lançado'),
+    ('Cancelado','Cancelado'),
+    ('Pausado', 'Pausado'), 
+    ('Desconhecido', 'Desconhecido')
+)
 SUBTYPES = (('Manga', 'Manga'), ('One-shot', 'One-shot'))
 
 class Manga(models.Model):
@@ -16,6 +23,7 @@ class Manga(models.Model):
     custom_thumbnail = models.CharField(max_length=255)
     kitsu_link = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
+    release_date = models.DateField(null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 

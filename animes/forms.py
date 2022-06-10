@@ -8,10 +8,10 @@ class NewAnimeForm(forms.ModelForm):
     class Meta:
         model = Anime
         fields = (
-            'title',
-            'seasons',
             'kitsu_link',
             'auto_complete',
+            'title',
+            'seasons',
             'subtype',
             'description',
             'total_episodes',
@@ -20,7 +20,19 @@ class NewAnimeForm(forms.ModelForm):
             'official_thumbnail',
             'custom_thumbnail',
             'studio')
-
+    auto_complete = forms.CharField(
+        label="Preenche automaticamente o restante dos campos com kitsu",
+        max_length=255,
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'waves-effect waves-light btn-small disabled',
+                'type':'button',
+                'value': 'Pesquisar',
+                'onclick': 'autoComplete()'
+            }
+        )
+    ) 
     title = forms.CharField(
         label="Título",
         max_length=255,
@@ -30,35 +42,22 @@ class NewAnimeForm(forms.ModelForm):
                 'class': 'form-control'
             }
         )
-    )
-    auto_complete = forms.CharField(
-        label="Preenche automaticamente o restante dos campos com kitsu",
-        max_length=255,
-        required=False,
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'type':'button',
-                'value': 'Preencher',
-                'onclick': 'autoComplete()'
-            }
-        )
     ) 
     seasons = forms.ModelChoiceField(
         queryset=Season.objects.all(),
         widget=forms.Select(attrs={
-			"class": 'form-controll browser-default'
-			}), 
-			required=True,
-			label="Temporada")
-		
+            "class": 'form-controll browser-default'
+            }), 
+            required=True,
+            label="Temporada")
+        
     kitsu_link = forms.CharField(
         label="Kitsu",
         max_length=255,
         required=False,
         widget=forms.TextInput(
             attrs={
-				'placeholder': 'Coloque aqui o link do anime no Kitsu ou digite seu id',
+                'placeholder': 'Adicione o id, link ou nome do anime que deseja pesquisar',
                 'class': 'form-control'
             }
         )
@@ -66,10 +65,11 @@ class NewAnimeForm(forms.ModelForm):
     release_date = forms.DateField(
         label="Data de lançamento",
         required=False,
+        input_formats=['%Y-%m-%d'],
         widget=forms.DateInput(attrs={
-			'class': 'form-control',
-			'type': 'date'
-		})
+            'class': 'form-control',
+            'type': 'date'
+        })
     )
 
     description = forms.CharField(
@@ -82,27 +82,27 @@ class NewAnimeForm(forms.ModelForm):
         )
     )
     subtype = forms.ChoiceField(
-		choices = SUBTYPES, 
-		label="Subtipo", 
-		initial='', 
-		widget=forms.Select(attrs={"class": 'form-controll browser-default'}), required=True)
+        choices = SUBTYPES, 
+        label="Subtipo", 
+        initial='', 
+        widget=forms.Select(attrs={"class": 'form-control browser-default'}), required=True)
 
     total_episodes = forms.IntegerField(
         label="Total de episódios",
-        required=False,
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 'class': 'form-control',
-				'value': 0
-			}
+                'value': 0
+            }
         )
     )
-	
+    
     status = forms.ChoiceField(
-		choices = STATUS, 
-		label="Status", 
-		initial='', 
-		widget=forms.Select(attrs={"class": 'form-controll browser-default'}), required=True)
+        choices = STATUS, 
+        label="Status", 
+        initial='', 
+        widget=forms.Select(attrs={"class": 'form-controll browser-default'}), required=True)
 
     official_thumbnail = forms.CharField(
         label="Thumbnail oficial",

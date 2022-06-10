@@ -1,4 +1,9 @@
-{% extends 'base/header.html' %} {% load static %} {% block main %}
+{% extends 'base/header.html' %} 
+{% load static %}
+{% block script %}
+<script type="text/javascript" src="{% static 'animes/js/script.js'%}"></script>
+{% endblock %}
+{% block main %}
 <br><br>
 <div class="center-align">
     <a href="{% url 'cadastrar_anime'%}" class="waves-effect waves-light btn"><i class="material-icons left">add</i>Clique aqui para Cadastrar Animes novos</a>

@@ -7,7 +7,8 @@ from .forms import NewAnimeForm
 from .models import Anime
 from django.core import serializers
 from django.http import JsonResponse
-
+from animanga import kitsu_api
+import re
 
 def listar_animes(request):
     return render(request, 'animes/listar-animes.html', {'animes': Anime.objects.all(), 'current_user': request.user})
@@ -20,8 +21,6 @@ def json_body(request):
 def cadastro_auto_complete(request):
     def post():
         def auto_complete(search_term):
-            from animanga import kitsu_api
-            import re
             id = None
             if re.match(r"^\d+$", search_term):
                 id = search_term
@@ -34,7 +33,6 @@ def cadastro_auto_complete(request):
             return json.dumps(anime)
 
         content = json_body(request)
-        title = content['title']
         kitsu_link = content['kitsuLink']
         if not kitsu_link:
             redirect('cadastrar_anime')
@@ -79,6 +77,7 @@ def cadastrar_anime(request):
             title=anime['title'],
             description=anime['description'],
             status=anime['status'],
+            release_date=anime['release_date'],
             total_episodes=anime['total_episodes'],
             official_thumbnail=anime['official_thumbnail'],
             custom_thumbnail=anime['custom_thumbnail'],

@@ -3,8 +3,14 @@ from django.contrib.auth import get_user_model
 from season.models import Season
 
 # Create your models here.
-STATUS = (('Não lançado','Não lançado'),('Em andamento', 'Em andamento'), ('Finalizado', 'Finalizado'),
-          ('Pausado', 'Pausado'), ('Cancelado', 'Cancelado'))
+STATUS = (
+    ('Em andamento', 'Em andamento'), 
+    ('Finalizado', 'Finalizado'),
+    ('Não lançado','Não lançado'),
+    ('Cancelado','Cancelado'),
+    ('Pausado', 'Pausado'), 
+    ('Desconhecido', 'Desconhecido')
+)
 SUBTYPES = (('TV', 'TV'), ('OVA', 'OVA'), ('ONA', 'ONA'),('Filme', 'Filme'), ('Outro', 'Outro'))
 
 
